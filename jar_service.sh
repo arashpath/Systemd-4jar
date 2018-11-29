@@ -3,6 +3,23 @@ SERVICE_NAME=MyService
 PATH_TO_JAR=helloworld-spring-1.4.jar
 PID_PATH_NAME=/tmp/MyService-pid
 case $1 in
+    install)
+    echo "Creating Service "
+    cat <<EOF > /etc/systemd/system/"$SERVICE_NAME".service
+[Unit]
+Description = Java Service
+After=syslog.target network.target
+
+[Service]
+Type = forking
+ExecStart = /usr/local/bin/MyService.sh start
+ExecStop = /usr/local/bin/MyService.sh stop
+ExecReload = /usr/local/bin/MyService.sh reload
+
+[Install]
+WantedBy=multi-user.target
+EOF
+    ;;
     start)
         echo "Starting $SERVICE_NAME ..."
         if [ ! -f $PID_PATH_NAME ]; then
