@@ -1,0 +1,10 @@
+language: bash
+
+sudo: required
+
+addons:
+  apt:
+    packages:
+      - openjdk-8-jre-headless
+
+script: "bash jar_service.sh start"
