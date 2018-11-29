@@ -6,7 +6,7 @@ addons:
   apt:
     packages:
       - default-jre
-      - coreutils
+      - realpath
 
 script: 
   - "bash systemd4jar.sh helloworld-spring-1.4.jar"
