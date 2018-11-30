@@ -1,13 +1,13 @@
 ---
 language: bash
-os: linux
-  - dist: xenial
+dist: xenial
 sudo: required
 
 before_install:
-  - sudo apt-get install -y default-jre-headless wget
+  - sudo apt-get install -y default-jre-headless
+befour_script:
   - mkdir test; cd test
-  - wget "https://raw.githubusercontent.com/apcera/sample-apps/master/example-java-jar-hello/hello.jar"
+  - curl -o test/hello.jar https://raw.githubusercontent.com/apcera/sample-apps/master/example-java-jar-hello/hello.jar
 
 script: 
   - "bash systemd4jar.sh test/hello.jar"
