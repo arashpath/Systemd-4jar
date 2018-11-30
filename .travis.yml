@@ -7,7 +7,7 @@ before_script:
   - curl -o test/hello.jar https://raw.githubusercontent.com/apcera/sample-apps/master/example-java-jar-hello/hello.jar
 
 script: 
-  - "bash systemd4jar.sh test/hello.jar"
+  - "sudo /bin/sh systemd4jar.sh test/hello.jar"
   - "sudo systemctl start jar-hello"
   - "sudo systemctl status jar-hello"
   - "sudo journalctl -f -n 10 -u jar-hello"
