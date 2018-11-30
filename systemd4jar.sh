@@ -34,6 +34,7 @@ LOG=\$PKGS/$service.log
 
 \$JAVA_PATH/java -jar \$JAR /tmp | tee -a \$LOG  
 EOF
+chmod +x $jar_dir/$service-start.sh
 cat $jar_dir/$service-start.sh  
 
 # Creating a systemd service --------------------------------------------------#
