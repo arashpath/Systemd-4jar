@@ -1,6 +1,7 @@
 ---
 language: bash
-dist: xenial
+os: linux
+  - dist: xenial
 sudo: required
 
 before_install:
