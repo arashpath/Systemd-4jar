@@ -5,9 +5,9 @@ os: linux
 sudo: required
 
 before_install:
-  - sudo apt-get install -y default-jre-headless
+  - sudo apt-get install -y default-jre-headless wget
   - mkdir test; cd test
-  - curl -o test/hello.jar https://raw.githubusercontent.com/apcera/sample-apps/master/example-java-jar-hello/hello.jar
+  - wget "https://raw.githubusercontent.com/apcera/sample-apps/master/example-java-jar-hello/hello.jar"
 
 script: 
   - "bash systemd4jar.sh test/hello.jar"
