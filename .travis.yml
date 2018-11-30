@@ -2,11 +2,14 @@
 language: bash
 dist: xenial
 sudo: required
-addons:
-  apt:
-    packages:
-      - default-jre-headless
-      - wget
+
+before_install:
+  - sudo apt-get install -y default-jre-headless
+  - mkdir test; cd test
+  - curl -o test/hello.jar https://raw.githubusercontent.com/apcera/sample-apps/master/example-java-jar-hello/hello.jar
 
 script: 
-  - "bash systemd4jar.sh helloworld-spring-1.4.jar"
+  - "bash systemd4jar.sh test/hello.jar"
+  - "systemctl start jar-hello"
+  - "systemctl status jar-hello"
+  - "journalctl -f -n 10 -u jar-hello"

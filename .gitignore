@@ -1,2 +1,4 @@
-.vagrant
 *.log
+.vagrant
+test/*.sh
+test/*.jar

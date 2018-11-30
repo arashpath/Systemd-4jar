@@ -1,8 +1,8 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 Vagrant.configure("2") do |config|
-  # config.vm.box_check_update = false
-  config.vm.synced_folder "..", "/test"
+  config.vm.box_check_update = false
+  config.vm.synced_folder "..", "/vagrant"
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "512"
   end
@@ -17,6 +17,6 @@ Vagrant.configure("2") do |config|
   end
   # Run tests...
   config.vm.provision "shell", 
-    inline: "cd /test; pwd; ls -l",
+    inline: "cd /vagrant; sh systemd4jar.sh test/hello.jar",
     run: "always"
 end
