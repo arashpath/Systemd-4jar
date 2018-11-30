@@ -6,11 +6,10 @@ sudo: required
 before_install:
   - sudo apt-get install -y default-jre-headless
 befour_script:
-  - mkdir test; cd test
-  - curl -o test/hello.jar https://raw.githubusercontent.com/apcera/sample-apps/master/example-java-jar-hello/hello.jar
+  - curl -o hello.jar https://raw.githubusercontent.com/apcera/sample-apps/master/example-java-jar-hello/hello.jar
 
 script: 
-  - "bash systemd4jar.sh test/hello.jar"
-  - "systemctl start jar-hello"
-  - "systemctl status jar-hello"
-  - "journalctl -f -n 10 -u jar-hello"
+  - "bash systemd4jar.sh hello.jar"
+  - "sudo systemctl start jar-hello"
+  - "sudo systemctl status jar-hello"
+  - "sudo journalctl -f -n 10 -u jar-hello"
