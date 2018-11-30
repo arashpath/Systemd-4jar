@@ -3,13 +3,12 @@ language: bash
 dist: xenial
 sudo: required
 
-before_install:
-  - sudo apt-get install -y default-jre-headless
 befour_script:
-  - curl -o hello.jar https://raw.githubusercontent.com/apcera/sample-apps/master/example-java-jar-hello/hello.jar
+  - mkdir test
+  - curl -o test/hello.jar https://raw.githubusercontent.com/apcera/sample-apps/master/example-java-jar-hello/hello.jar
 
 script: 
-  - "bash systemd4jar.sh hello.jar"
+  - "bash systemd4jar.sh test/hello.jar"
   - "sudo systemctl start jar-hello"
   - "sudo systemctl status jar-hello"
   - "sudo journalctl -f -n 10 -u jar-hello"
