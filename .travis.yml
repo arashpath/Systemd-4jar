@@ -3,7 +3,7 @@ language: bash
 dist: xenial
 sudo: required
 
-befour_script:
+before_script:
   - mkdir test
   - curl -o test/hello.jar https://raw.githubusercontent.com/apcera/sample-apps/master/example-java-jar-hello/hello.jar
 
