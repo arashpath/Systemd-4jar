@@ -1,0 +1,22 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+Vagrant.configure("2") do |config|
+  # config.vm.box_check_update = false
+  config.vm.synced_folder "..", "/test"
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = "512"
+  end
+
+  # Create a ubuntu machine
+  config.vm.define "apt" do |apt|
+    apt.vm.box = "ubuntu/xenial64"
+    apt.vm.provision "shell", inline: <<-APT
+      apt-get update
+      apt-get install -y default-jre-headless
+      APT
+  end
+  # Run tests...
+  config.vm.provision "shell", 
+    inline: "cd /test; pwd; ls -l",
+    run: "always"
+end

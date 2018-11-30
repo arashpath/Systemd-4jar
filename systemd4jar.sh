@@ -10,12 +10,16 @@ usage() {
 if [ -z "$1" ]; then echo "Jar file??"; usage; exit 1; fi
 if [ ! -f "$(realpath $1)" ]; then echo "File $1 not found"; usage; exit 1; fi
 
-jar_file="$(realpath $1)"
-echo "full : $jar_file"
-echo "path : ${jar_file%/*}"
-echo "base : ${jar_file##*/}"
-echo "ext  : ${jar_file##*.}"
-echo $(basename $jar_file)
+jar_loc="$(realpath $1)"
+jar_dir="${jar_loc%/*}"
+jar_nam="${jar_loc##*/}"
+jar_ser="${jar_nam}"
+echo "full : $jar_loc"
+echo "path : $jar_dir"
+echo "base : ${jar_loc##*/}"
+echo "ext  : ${jar_loc##*.}"
+echo "Test": ${`${jar_loc##*/}`%.*}
+
 
 echo "Creating StartUp Script ..."
 #cat <<EOF > $(dirname $jar_file)/service4jar.sh

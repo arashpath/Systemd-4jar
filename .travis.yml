@@ -1,12 +1,12 @@
 ---
 language: bash
-os: linux
+dist: xenial
 sudo: required
 addons:
   apt:
     packages:
-      - default-jre
-      - realpath
+      - default-jre-headless
+      - wget
 
 script: 
   - "bash systemd4jar.sh helloworld-spring-1.4.jar"
