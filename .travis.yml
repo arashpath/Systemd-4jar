@@ -10,4 +10,4 @@ script:
   - "sudo /bin/sh systemd4jar.sh test/hello.jar"
   - "sudo systemctl start jar-hello"
   - "sudo systemctl status jar-hello"
-  - "sudo journalctl -f -n 10 -u jar-hello"
+  - "sudo journalctl -n 10 -u jar-hello"
