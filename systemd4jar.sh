@@ -2,23 +2,33 @@
 # Creates a script in the directory of your jar file and systemd service for it.
 set -e
 
-# Java EXE location
-JAVA=$(which java)
-
 usage() {
   echo "Usage: 
   sh systemd4jar.sh YourJavaFile.jar"
+  exit 1
 }
 
 # Checks
-if [ -z "$1" ]; then echo "Jar file??"; usage; exit 1; fi
-if [ ! -f "$(realpath $1)" ]; then echo "File $1 not found"; usage; exit 1; fi
+if [ -z "$1" ]; then echo "Jar file??"; fi
+if [ ! -f "$(realpath $1)" ]; then echo "File $1 not found"; fi
+echo "Checking for Java.."
+if type -p java; then
+  echo "  java found in executable PATH"
+  _java=java
+elif [[ -n "$JAVA_HOME" ]] && [[ -x "$JAVA_HOME/bin/java" ]]; then
+  echo "  java found in executable in JAVA_HOME"
+  _java="$JAVA_HOME/bin/java"
+else
+  echo "  NO java found"
+  echo "'export JAVA_HOME' if java is not in path"
+  usage
+fi
 
 # Parameter expansion http://wiki.bash-hackers.org/syntax/pe#common_use
 jar_path="$(realpath $1)"     # realpath of Jar file
-jar_dir="${jar_path%/*}"      # directory Containing Jar
+ jar_dir="${jar_path%/*}"     # directory Containing Jar
 jar_name="${jar_path##*/}"    # basename with extension
-service="${jar_name%.*}"      # basename without ext and versions
+ service="${jar_name%.*}"     # basename without ext and versions
 
 # Creating a Bash StartUp Script ----------------------------------------------#
 echo "Creating StartUp Script ..."
@@ -29,10 +39,10 @@ PKGS=\$(dirname \$(readlink -f "\$0") )
 JAR=\$PKGS/$jar_name
 
 # Change following is required
-JAVA_PATH=\$(dirname \$(which java))
+JAVA_EXE=$_java
 LOG=\$PKGS/$service.log 
 
-\$JAVA_PATH/java -jar \$JAR /tmp | tee -a \$LOG  
+\$JAVA_EXE -jar \$JAR /tmp | tee -a \$LOG  
 EOF
 chmod +x $jar_dir/$service-start.sh
 cat $jar_dir/$service-start.sh  
