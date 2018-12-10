@@ -17,6 +17,6 @@ Vagrant.configure("2") do |config|
   end
   # Run tests...
   config.vm.provision "shell", 
-    inline: "cd /vagrant; sh systemd4jar.sh test/hello.jar",
+    inline: "cd /vagrant; sudo /bin/bash systemd4jar.sh test/hello.jar",
     run: "always"
 end
