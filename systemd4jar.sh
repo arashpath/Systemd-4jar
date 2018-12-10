@@ -8,7 +8,7 @@ usage() {
   exit 1
 }
 
-# Checks
+# Few Checks
 if [ -z "$1" ]; then echo "Jar file??"; fi
 if [ ! -f "$(realpath $1)" ]; then echo "File $1 not found"; fi
 echo "Checking for Java.."
@@ -38,7 +38,7 @@ cat <<EOF > $jar_dir/$service-start.sh
 PKGS=\$(dirname \$(readlink -f "\$0") )
 JAR=\$PKGS/$jar_name
 
-# Change following is required
+# Change following as per your env
 JAVA_EXE=$_java
 LOG=\$PKGS/$service.log 
 
